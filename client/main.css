@@ -1,0 +1,298 @@
+/* CSS declarations go here */
+.topGap{
+	margin-top: 30px;
+}
+
+.topGapSmall{
+  margin-top: 10px;
+}
+
+html {
+  font-weight: 300;
+  font-family: "Raleway", "Helvetica", "Roboto";
+}
+
+.roundedBorder{
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+
+.bodyLandingPage {
+  color: #333;
+  /*background-color: #FAFAD2;*/
+}
+
+.imagePreview{
+  border-radius: 5px;
+}
+
+.titleOverImage{
+  background-color: grey;
+  opacity: 0.5;
+}
+
+
+h4,h5 {
+  font-weight:300;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+/*    color: #333; 
+    background-color: #333;*/
+}
+
+.middleAlign{
+        position:absolute; /*it can be fixed too*/
+        left:0; right:0;
+        top:0; bottom:0;
+        margin: auto;
+}
+
+.fullWindowHeight{
+	min-height: 100vh;
+	padding-bottom: 20px;
+
+}
+
+.middle {
+  margin-top: 50%;
+}
+
+.lowOpacity{
+  opacity: 0.3;
+}
+
+.lessWidth{
+  width: 85%;
+}
+
+.backToStyle{
+  height: 50px;
+  margin-top: -15px;
+}
+
+.backToStyleRestaurant{
+  height: 60px;
+  margin-top: -15px;
+}
+
+.lessContrast{
+   -webkit-filter: grayscale(40%); /* Chrome, Safari, Opera */
+   filter: grayscale(40%); /* Chrome, Safari, Opera */
+
+}
+.noMarginTop {
+  margin-top: -7px;
+}
+
+.noMarginBottom {
+  margin-bottom: -7px;
+  padding-bottom: 0px;
+}
+
+.noMarginTopBottom {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.noMarginTopBigger {
+  margin-top: -20px;
+}
+.noMarginBottomBigger {
+  margin-bottom: -20px;
+}
+
+.topGap{
+	margin-top: 30px;
+}
+
+.topGapSmall{
+  margin-top: 10px;
+}
+
+.paddingTopBottom{
+  padding: 10px 0;
+}
+
+.rightGap {
+  margin-right: 30px;
+}
+
+.bottomGap{
+  margin-bottom: 30px;
+}
+
+.smallTopGap{
+  margin-top: 10px;
+}
+
+.smallBottomGap{
+  margin-bottom: 20px;
+}
+
+.iconAlign {
+    vertical-align: bottom;
+}
+
+.iconFloatLeft {
+    float: left;
+    margin-right: 15px;
+}
+
+.fullButton {
+  display: block;
+  width:100%;
+}
+
+.navbarText {
+  font-size: 1.7em !important;
+}
+
+.biggerText {
+  font-size: 1.3em;
+}
+.bigText {
+  font-size: 1.7em;
+}
+
+.smallText{
+  font-size: 0.8em;
+}
+
+.smallerText{
+  font-size: 0.6em;
+}
+
+
+@media only screen and (min-width: 500px) {
+    .containedFAB{
+      bottom: 45px;
+      right: 170px;
+    }
+}
+
+/* RESTAURANT VIEW */
+a.goLink  {
+    color: #0097a7 !important;
+}
+
+a.goLink:hover {
+    color: #b2ebf2 !important;
+}
+
+a.warnLink  {
+    color: #ef9a9a !important;
+}
+
+a.warnLink:hover {
+    color: #ffebee !important;
+}
+
+a.warnStrongLink  {
+    color: #c62828 !important;
+}
+
+a.warnStrongLink:hover {
+    color: #e57373 !important;
+}
+
+a.warnStrongBtn {
+    background-color: #ef5350 !important;
+}
+
+a.warnStrongBtn:hover {
+    background-color: #ef9a9a !important;
+}
+
+
+a.menuCategoryRemove  {
+    color: #ef9a9a;
+}
+
+a.menuCategoryRemove:hover {
+    color: #b71c1c;
+}
+
+a.menuCategoryGo  {
+    color: #80deea;
+}
+
+a.menuCategoryGo:hover {
+    color: #00acc1;
+}
+/*table*/
+.collapsible-header {
+  position: relative;
+}
+
+.collapsible-header .callWaiterIcon {
+  position: absolute;
+  right: 20px;
+  width: 30px;
+  top: 5px;
+  }
+
+.collapsible-header .tableStatusIcon {
+  position: absolute;
+  left: 140px;
+  width: 30px;
+  top: 2px;
+}
+
+.tabs .indicator {
+     background-color: #546e7a !important;
+}
+
+
+.imagewrap {
+    position:relative;
+    min-height: 120px;
+    max-height: auto;
+}
+
+.uploader-yellow-button {
+    position:absolute;
+    bottom:0;
+    left:0;
+    opacity: 0.7
+}
+
+.uploader-yellow-button:hover {
+    opacity: 1.2
+}
+
+.img {
+       width: 100%;
+       height: auto;
+}
+
+
+.parallax{
+  position:static;
+  -webkit-filter: opacity(0.4) contrast(90%);
+  filter: opacity(0.4) contrast(90%);
+  object-fit: cover;
+}
+
+.parallax-container {
+  height: 530px;
+}
+
+
+.smallerCollectionItem{
+  height: 15px !important;
+  padding-top:20px !important;
+}
+
+.avatar .circle{
+  font-size: 40px
+  width: 300px;
+}
+
