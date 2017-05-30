@@ -36,7 +36,7 @@ class DialogSingleCard extends Component {
                 </div>
                 <div className="card-action">
                   <a href="#" onClick={this.removeDialog.bind(this)} className="smallText">Remove </a>
-                  <a href={'/editDialog/${dialogName}'}  className="smallText">Edit </a>
+                  <a href={`/editDialog/${dialogName}`}  className="smallText">Edit </a>
                 </div>  
               </div>
             </div>
