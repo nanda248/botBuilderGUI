@@ -5,7 +5,7 @@ class DialogSingleCard extends Component {
     removeDialog(){
       let dialogId = this.props.dialog._id;
       let dialogName = this.props.dialog.name;
-
+      let dialogSetId = this.props.dialogSetId;
       swal({
         title: "Are you sure?",
         text: `${dialogName} will be removed from the category.`,
@@ -16,15 +16,13 @@ class DialogSingleCard extends Component {
         closeOnConfirm: true
       }, function(){
         Meteor.call('dialogDelete', dialogId);
-        Meteor.call('dialogSetRemove', dialogName);       // dialogName = scenario (in this case), need to change later
+        Meteor.call('dialogSetRemove', dialogName, dialogSetId);       // dialogName = scenario (in this case), need to change later
         swal("Deleted!",`${dialogName} has been removed from the category.`,"success");
       }); 
     }
   
     render(){
   		let dialogName = this.props.dialog.name;
-
-  		console.log("DIALOG: ", dialogName);
 
         return (
         	<div className="col s4">
@@ -36,6 +34,7 @@ class DialogSingleCard extends Component {
                 </div>
                 <div className="card-action">
                   <a href="#" onClick={this.removeDialog.bind(this)} className="smallText">Remove </a>
+                  <i className="tiny material-icons">mode_edit</i>
                   <a href={`/editDialog/${dialogName}`}  className="smallText">Edit </a>
                 </div>  
               </div>

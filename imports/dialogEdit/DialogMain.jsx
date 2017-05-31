@@ -4,7 +4,7 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import {Dialogs} from '../api/dialogs.js';
 import {DialogSet} from '../api/dialogSet.js';
 
-
+import DialogModule from './DialogModule';
 
 class DialogMain extends TrackerReact(Component) {
 
@@ -38,7 +38,23 @@ class DialogMain extends TrackerReact(Component) {
 
 		return(			
 			<div className="row">
-				<h3>Main Dialog: {dialogName}</h3>
+				<div className="col s2">
+					<div className="row brown lighten-1 fullWindowHeight noMarginLeft">
+						<br />
+						<div className="col s12 paddingTopBottom">
+							<a className="waves-effect waves-light btn">Add Id and Type</a>
+						</div>
+						<br />
+						<br />
+						<div className="col s12 paddingTopBottom">
+							<a className="waves-effect waves-light btn">Add text</a>
+						</div>
+					</div>
+				</div>
+				<div className="col s3 offset-s1">
+					<DialogModule dialogName={dialogName}/>
+				</div>
+				
 			</div>
 		);
 	}

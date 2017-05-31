@@ -22,9 +22,11 @@ Meteor.methods({
 	dialogSetRemove(scenario, dialogSetId){
 		// if(!scenario)
 		// 	throw new Meteor.Error('Error removing dialog set.');
-		DialogSet.update({_id: dialogSetId}, {
-			dialogs:{
-				scenario: scenario
+		DialogSet.update({_id: dialogSetId}, { 
+			$pull: {
+				dialogs:{
+					scenario: scenario
+				}
 			}
 		})
 	},
@@ -41,5 +43,26 @@ Meteor.methods({
 
 	dialogDelete(dialogId){
 		Dialogs.remove(dialogId);
+	},
+
+	dialogAddIdType(id,type){
+
+	},
+
+	dialogAddText(){
+
+	},
+
+	dialogAddStep(){
+
+	},
+
+	dialogAddPrompt(){
+
+	},
+
+	dialogEndText(){
+
 	}
+
 });

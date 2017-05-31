@@ -3,11 +3,8 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import {Dialogs} from './api/dialogs.js';
 import {DialogSet} from './api/dialogSet.js';
-import DialogSingle from './DialogSingle';
 import DialogSingleCard from './DialogSingleCard';
 import AddDialogSetBtn from './AddDialogSetBtn';
-
-import ConvertCode from '../imports/ConvertCode.jsx';
 
 class App extends TrackerReact(Component) {
 
@@ -76,25 +73,35 @@ class App extends TrackerReact(Component) {
 		return(
 			
 				<div className="row">
-				<div className="col s2 teal darken-4 fullWindowHeight">
-					
-						<form className="center-align">
-							<input type="text" ref="dialog" placeholder="Dialog Name" label="Dialog Name"/>
-							<input type="text" ref="regex" placeholder="Regex" label="Regex (separate by comma)"/>
-							<a className="waves-effect waves-light btn smallText" onClick={this.addDialog.bind(this)}>
-								<i className="material-icons left">send</i>
-								Create
-							</a>
-						</form>
-
-						<br />
-						<AddDialogSetBtn dialog={dialogs} dialogSetId={dialogSetid}/>
+				<div className="col m3 teal darken-4 fullWindowHeight">
+						<div className="row">
+							<form className="col s12">
+								<div className="input-field">
+									<input type="text" ref="dialog" />
+									<label className="smallText"> Dialog Name (No space between words)</label>
+								</div>
+								<div className="input-field">
+									<input type="text" ref="regex" />
+									<label className="smallText">Regex (separate by comma)</label>
+								</div>	
+								<div className="col s6">
+									<a className="waves-effect waves-light btn smallText" onClick={this.addDialog.bind(this)}>
+										<i className="material-icons left">send</i>
+										Create
+									</a>
+								</div>	
+								<div className="col s6">
+									<AddDialogSetBtn dialog={dialogs} dialogSetId={dialogSetid} dialogSet={dialogSet}/>
+								</div>													
+							</form>
+						</div>
+						
 				</div>
-				<div className="col s10">
+				<div className="col m9">
 						<div className="row">
 							{noData}
 							{dialogs.map((dialog)=>{
-									return <DialogSingleCard key={dialog._id} dialog={dialog} />
+									return <DialogSingleCard key={dialog._id} dialog={dialog} dialogSetId={dialogSetid} dialogSet={dialogSet}/>
 							})}
 						</div>
 				</div>

@@ -6,7 +6,7 @@ export const MainLayout = ({content}) => (
 		<NavBarLayout />
 	  	<div className="main-layout">
 			{content}
-		</div>
+		</div>		
 	  
 	</div>
 	
