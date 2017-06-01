@@ -10,14 +10,10 @@ class NextFieldInput extends Component{
 	}
 
 
-	componentDidMount(){
-		// $(React.findDOMNode(this.refs.type)).on('change', this.handleChangeSelect)
-		$(this.refs.dataType).material_select(this.handleChangeSelect.bind(this));
-	}
-
 	handleChangeSelect(event){
 		event.preventDefault();
-		this.setState({promptType: event.target.value})
+		console.log("handleChangeSelect: ", this.refs.dataType.value)
+		this.setState({promptType: this.refs.dataType.value})
 	}
 
 	handleFieldContent(){
@@ -89,7 +85,7 @@ class NextFieldInput extends Component{
 	render(){
 		let content = this.handleFieldContent();
 		console.log("PROMPT type: ",this.state.promptType)
-		coonsole.log("show next module: ", this.state.showNextModule)
+		console.log("show next module: ", this.state.showNextModule)
 		return(
 			<div className="row">
 				<form className="col s12">

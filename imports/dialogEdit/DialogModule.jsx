@@ -26,6 +26,7 @@ class DialogModule extends Component {
 
 	render(){
 		console.log("select type in render", this.state.type)
+		console.log("dialog module showNextModule", this.state.showNextModule);
 		let selectedType = this.state.type;
 
 		let fieldArea = this.state.showField ? <NextFieldInput type={selectedType}/> : <span></span>

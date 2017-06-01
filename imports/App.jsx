@@ -76,23 +76,24 @@ class App extends TrackerReact(Component) {
 				<div className="col m3 teal darken-4 fullWindowHeight">
 						<div className="row">
 							<form className="col s12">
-								<div className="input-field">
-									<input type="text" ref="dialog" />
-									<label className="smallText"> Dialog Name (No space between words)</label>
-								</div>
-								<div className="input-field">
-									<input type="text" ref="regex" />
-									<label className="smallText">Regex (separate by comma)</label>
-								</div>	
-								<div className="col s6">
-									<a className="waves-effect waves-light btn smallText" onClick={this.addDialog.bind(this)}>
-										<i className="material-icons left">send</i>
-										Create
-									</a>
-								</div>	
-								<div className="col s6">
-									<AddDialogSetBtn dialog={dialogs} dialogSetId={dialogSetid} dialogSet={dialogSet}/>
-								</div>													
+								<div className="row">
+									<div className="input-field col s12">
+										<input type="text" ref="dialog" />
+										<label className="smallerText"> Dialog Name (No space between words)</label>
+									</div>
+									<div className="input-field col s12">
+										<input type="text" ref="regex" />
+										<label className="smallerText">Regex (separate by comma)</label>
+									</div>	
+									<div className="col s12 m6 paddingTopBottom">
+										<a className="waves-effect waves-light btn smallText" onClick={this.addDialog.bind(this)}>
+											Create
+										</a>
+									</div>	
+									<div className="col s12 m6">
+										<AddDialogSetBtn dialog={dialogs} dialogSetId={dialogSetid} dialogSet={dialogSet}/>
+									</div>	
+								</div>												
 							</form>
 						</div>
 						
