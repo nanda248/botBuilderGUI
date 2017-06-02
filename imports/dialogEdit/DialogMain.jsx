@@ -10,7 +10,8 @@ class DialogMain extends TrackerReact(Component) {
 
 	constructor(){
 		super();
-
+		Session.set("promptTypeChosen", null)
+		Session.set("addNextModule", null)
 		this.state={
 			subscription: {
 				dialogs: Meteor.subscribe("allDialogs"),
@@ -35,11 +36,27 @@ class DialogMain extends TrackerReact(Component) {
 
 	render(){
 		let dialogName = this.props.dialogName;
+		if(Meteor.isClient){
+			promptType = Session.get("promptTypeChosen");	
+			addNextModule = Session.get("addNextModule");
+		}
+
+		var newModule = []
+		if(addNextModule>0){
+			for(i=0 ; i<=addNextModule ; i++){
+				newModule.push(<DialogModule dialogName={dialogName}/>) 	// following new module
+			}
+		}else{
+			newModule=(<DialogModule dialogName={dialogName}/>) 		// First module to be created
+		}
+		
+
+		// addModule = addNextModule ? (<DialogModule dialogName={dialogName}/>) : <span></span>
 
 		return(			
 			<div className="row">
-				<div className="col s2">
-					<div className="row brown lighten-1 fullWindowHeight noMarginLeft">
+				<div className="col m2 grey lighten-1 fullWindowHeight ">
+					<div className="row">
 						<br />
 						<div className="col s12 paddingTopBottom">
 							<a className="waves-effect waves-light btn">Add Id and Type</a>
@@ -51,10 +68,10 @@ class DialogMain extends TrackerReact(Component) {
 						</div>
 					</div>
 				</div>
-				<div className="col s3 offset-s1">
-					<DialogModule dialogName={dialogName}/>
+				<div className="col m10">
+						
+						{newModule}
 				</div>
-				
 			</div>
 		);
 	}

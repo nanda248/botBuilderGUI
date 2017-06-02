@@ -77,13 +77,13 @@ class App extends TrackerReact(Component) {
 						<div className="row">
 							<form className="col s12">
 								<div className="row">
-									<div className="input-field col s12">
+									<div className="col s12">
 										<input type="text" ref="dialog" />
-										<label className="smallerText"> Dialog Name (No space between words)</label>
+										<label className="smallText"> Dialog Name (No space between words)</label>
 									</div>
-									<div className="input-field col s12">
+									<div className="col s12">
 										<input type="text" ref="regex" />
-										<label className="smallerText">Regex (separate by comma)</label>
+										<label className="smallText">Regex (separate by comma)</label>
 									</div>	
 									<div className="col s12 m6 paddingTopBottom">
 										<a className="waves-effect waves-light btn smallText" onClick={this.addDialog.bind(this)}>

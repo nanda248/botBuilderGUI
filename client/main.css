@@ -85,9 +85,9 @@ hr {
   padding-bottom: 0px;
 }
 
-.noMarginLeft{
-	margin-left: 0px;
-	padding-left: 0px;
+.logo{
+	font-weight: 300;
+	padding-left: 50px;
 }
 
 

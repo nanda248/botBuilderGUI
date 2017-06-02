@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import NextModule from './NextModule';
 
 class NextFieldInput extends Component{
 
@@ -12,8 +13,18 @@ class NextFieldInput extends Component{
 
 	handleChangeSelect(event){
 		event.preventDefault();
-		console.log("handleChangeSelect: ", this.refs.dataType.value)
-		this.setState({promptType: this.refs.dataType.value})
+		const dataType = this.refs.dataType.value;
+		console.log("handleChangeSelect: ", dataType)
+		if(Meteor.isClient)
+			Session.set('promptTypeChosen', dataType)
+		this.setState({promptType: dataType})
+	}
+
+	handleTextInput(event){
+		event.preventDefault();
+		const text = this.refs.prompt.value.trim();
+		console.log("TEXT for next module", text);
+		
 	}
 
 	handleFieldContent(){
@@ -43,7 +54,7 @@ class NextFieldInput extends Component{
 				break;
 
 			case "prompt":content = (
-					<div>
+					<div> 
 						<div className="teal lighten-2">Please choose prompt type and input a text to Send</div>
 						<div className="input-field" onChange={this.handleChangeSelect.bind(this)}>
 							<select className="browser-default" ref="dataType" onChange={this.handleChangeSelect.bind(this)}>
@@ -54,10 +65,11 @@ class NextFieldInput extends Component{
 						      <option value="confirm">confirm</option>
 						    </select>							
 						</div>	
-						<div className="input-field">
+						<div className="input-field" onChange={this.handleTextInput.bind(this)}>
 							<input id="prompt" type="text" className="validate"/>
 							<label>Text</label>	
 						</div>
+						<NextModule />
 					</div>
 				);
 				break;

@@ -77,7 +77,7 @@ class AddDialogSetBtn extends Component {
 
       return (
         <div>
-          <a className="btn waves-effect waves-light" onClick={this.addDialogSet.bind(this)}>
+          <a className="btn waves-effect waves-light smallText" onClick={this.addDialogSet.bind(this)}>
             Add to dialogs  
           </a>
         </div>

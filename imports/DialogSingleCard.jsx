@@ -25,9 +25,9 @@ class DialogSingleCard extends Component {
   		let dialogName = this.props.dialog.name;
 
         return (
-        	<div className="col s4">
+        	<div className="col s4 l3">
             <div className="row">
-              <div className="card blue-grey darken-1 z-depth-3">
+              <div className="card small blue-grey darken-1 z-depth-3">
                 <div className="card-content white-text">
                   <span className="card-title">{dialogName}</span>
                   <p>This is a dialog module. Please edit me to structure your bot.</p>
