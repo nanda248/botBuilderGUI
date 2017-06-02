@@ -11,7 +11,7 @@ class DialogMain extends TrackerReact(Component) {
 	constructor(){
 		super();
 		Session.set("promptTypeChosen", null)
-		Session.set("addNextModule", null)
+		Session.set("addNextModule", 1)
 		this.state={
 			subscription: {
 				dialogs: Meteor.subscribe("allDialogs"),
@@ -43,11 +43,9 @@ class DialogMain extends TrackerReact(Component) {
 
 		var newModule = []
 		if(addNextModule>0){
-			for(i=0 ; i<=addNextModule ; i++){
+			for(i=0 ; i<addNextModule ; i++){
 				newModule.push(<DialogModule dialogName={dialogName}/>) 	// following new module
 			}
-		}else{
-			newModule=(<DialogModule dialogName={dialogName}/>) 		// First module to be created
 		}
 		
 
@@ -69,7 +67,6 @@ class DialogMain extends TrackerReact(Component) {
 					</div>
 				</div>
 				<div className="col m10">
-						
 						{newModule}
 				</div>
 			</div>

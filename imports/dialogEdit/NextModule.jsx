@@ -6,13 +6,13 @@ class NextModule extends Component{
 
 		if(Meteor.isClient){
 			console.log("In next module bottom.")
-			if(Sessoin.get("addNextModule")===null){
-				Session.set("addNextModule", 0);
-			}else {
-				var value = Session.get(NextModule);
-				value = value +1;
+			// if(Session.get("addNextModule")===null){
+			// 	Session.set("addNextModule", 1);
+			// }else {
+				var value = Session.get("addNextModule");
+				value++;
 				Session.set("addNextModule", value);
-			}
+			// }
 			
 		}
 	}
