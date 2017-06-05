@@ -37,7 +37,8 @@ Meteor.methods({
 		Dialogs.insert({
 			name: name,
 			regex: regex,
-			createdAt: new Date()
+			createdAt: new Date(),
+			id: name
 		})
 	},
 
@@ -45,24 +46,89 @@ Meteor.methods({
 		Dialogs.remove(dialogId);
 	},
 
-	dialogAddIdType(id,type){
-
+	dialogAddType(id,type){
+		if(!id || !type)
+			throw new Meteor.Error('Error in dialogAddType')
+		Dialogs.update({id: id},{
+			$set: {
+				type: type
+			}
+		})
 	},
 
-	dialogAddText(){
+	dialogTextText(id, text){
+		if(!id || !text)
+			throw new Meteor.Error('Error in dialogTextText')
+		let dialog = Dialogs.findOne({"id": id});
 
+		if(dialog.data){
+			Dialogs.update({id: id, "data.text": dialog.data[0].text},{
+				$set: {
+					'data.$.text': text
+				}
+			})
+		} else{
+			Dialogs.update({id: id},{
+				$addToSet: {
+					data: {
+						"text": text
+					}
+				}
+			})
+		}
+		
 	},
 
-	dialogAddStep(){
-
+	dialogEndText(id, text){
+		if(!id || !text)
+			throw new Meteor.Error('Error in dialogTextText')
+		let dialogs = Dialogs.findOne({"id": id});
+		if(dialogs.data){
+			Dialogs.update({id: id, "data.text": dialogs.data[0].text},{
+				$set: {
+					'data.$.text': text
+				}
+			})
+		} else{
+			Dialogs.update({id: id},{
+				$addToSet: {
+					data: {
+						"text": text
+					}
+				}
+			})
+		}
 	},
 
-	dialogAddPrompt(){
-
-	},
-
-	dialogEndText(){
+	dialogPromptTextField(id, type, text){
+		if(!id || !text)
+			throw new Meteor.Error('Error in dialogPromptText')
+		// Dialogs.update({id: id},{
+		// 	$addToSet: {
+		// 		data: {
+		// 			type: type,
+		// 			text: text
+		// 		}
+		// 	}
+		// })
+		let dialogs = Dialogs.findOne({"id": id});
+		if(dialogs.data){
+			Dialogs.update({id: id, "data.text": dialogs.data[0].text},{
+				$set: {
+					'data.$.type': type,
+					'data.$.text': text
+				}
+			})
+		} else{
+			Dialogs.update({id: id},{
+				$addToSet: {
+					data: {
+						"type":type,
+						"text": text
+					}
+				}
+			})
+		}
 
 	}
-
 });

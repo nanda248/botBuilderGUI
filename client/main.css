@@ -90,9 +90,21 @@ hr {
 	padding-left: 50px;
 }
 
+.marginTop{
+  margin-top: 20px; 
+}
+
 
 .paddingTopBottom{
   padding: 10px 0;
+}
+
+.paddongTop{
+  padding: 10px;
+}
+
+.paddingBottom{
+	padding-bottom: 5px;
 }
 
 .rightGap {

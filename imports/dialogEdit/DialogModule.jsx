@@ -8,8 +8,8 @@ class DialogModule extends Component {
 		super(props);
 		this.state={
 			type: "",
-			showField: false,
-			showNextModule: false
+			showField: false
+			// showNextModule: false
 		}
 	}
 
@@ -21,22 +21,27 @@ class DialogModule extends Component {
 
 	handleChangeSelect(event){
 		event.preventDefault();
-		this.setState({type: event.target.value, showField:true})
+		var type = event.target.value;
+		this.setState({type: type, showField:true})
+		Meteor.call('dialogAddType', this.props.dialogName, type, (error, data)=> {
+			if(error)
+				Bert.alert(error.error, 'danger', 'fixed-top', 'fa-frown-o');
+			else 
+				console.log("dialogAddType Successful!")
+		})
 	}
 
 	render(){
 		console.log("select type in render", this.state.type)
-		console.log("dialog module showNextModule", this.state.showNextModule);
+		// console.log("dialog module showNextModule", this.state.showNextModule);
 		let selectedType = this.state.type;
-		let fieldArea = this.state.showField ? <NextFieldInput type={selectedType}/> : <span></span>
+		let fieldArea = this.state.showField ? <NextFieldInput type={selectedType} dialog={this.props.dialog}/> : <span></span>
 
 		return(			
-			<div className="row">
-				<div className="col s4 offset-s4 grey lighten-4">
-					<div className="card small blue-grey lighten-2 z-depth-3">
-	                <div className="card-content">
+
+					<div className="card-panel blue-grey lighten-2 z-depth-3">             
 	                  	<div className="row">
-	              			<form className="col m12">
+	              			<form className="col s12">
 	              				<span className="boldText">ID: {this.props.dialogName}</span>
 	              				<div className="input-field">
 							    <select className="browser-default" ref="type" onChange={this.handleChangeSelect.bind(this)}>
@@ -47,17 +52,13 @@ class DialogModule extends Component {
 							      <option value="end">end</option>
 							    </select>				    
 							  </div>	
-	              			</form>                 		
-	                  	</div>
-	        	
-	                </div>
-	                <div className="card-action">
-	                	{fieldArea}
-	                </div>  
+	              			</form>   
+	              			<div className="col s12">
+			                	{fieldArea}
+			                </div>                		
+	                  	</div>        
 	              </div>
-				</div>
-             </div>
-			
+
 		);
 	}
 }

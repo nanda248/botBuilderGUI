@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import NextModule from './NextModule';
+import DoneBtn from './DoneBtn';
 
 class NextFieldInput extends Component{
 
@@ -7,6 +8,7 @@ class NextFieldInput extends Component{
 		super(props);
 		this.state={
 			promptType: "",
+			textField: ""
 		}
 	}
 
@@ -20,35 +22,32 @@ class NextFieldInput extends Component{
 		this.setState({promptType: dataType})
 	}
 
-	handleTextInput(event){
-		event.preventDefault();
-		const text = this.refs.prompt.value.trim();
-		console.log("TEXT for next module", text);
-		
-	}
+	// handleTextInput(event){
+	// 	event.preventDefault();
+	// 	var text = this.refs.prompt.value.trim();
+	// 	console.log("TEXT for next module", text);		
+	// }
 
 	handleFieldContent(){
 		let type = this.props.type;
+		var pType = type;
+		if(promptType!=="")
+			pType = type + this.state.promptType;
+		console.log("Type + Prompt Type: ", type)
 		let content = null;
 		switch(type){
 			case "text": content = (
 					<div>
 						<div className="teal lighten-2">Please input text field to send.</div>
-						<div className="input-field">						
-							<input id="text" type="text" className="validate"/>
-							<label>Text</label>							
-						</div>	
+						<DoneBtn type="text" dialog={this.props.dialog}/>
 					</div>				
 				);
 				break;
 
 			case "sequence":content = (
-					<div>
+					<div className="marginTop">
 						<div className="teal lighten-2">Please input the steps</div>
-						<div className="input-field">						
-							<input id="message" type="text" className="validate"/>
-							<label>Text</label>							
-						</div>	
+						<NextModule />
 					</div>	
 				);
 				break;
@@ -65,11 +64,8 @@ class NextFieldInput extends Component{
 						      <option value="confirm">confirm</option>
 						    </select>							
 						</div>	
-						<div className="input-field" onChange={this.handleTextInput.bind(this)}>
-							<input id="prompt" type="text" className="validate"/>
-							<label>Text</label>	
-						</div>
-						<NextModule />
+						
+						<DoneBtn type={pType} dialog={this.props.dialog} promptType={this.state.promptType}/>
 					</div>
 				);
 				break;
@@ -77,10 +73,7 @@ class NextFieldInput extends Component{
 			case "end":content = (
 					<div>
 						<div className="teal lighten-2">Please input a final text to end the dialog.</div>
-						<div className="input-field">						
-							<input id="endText" type="text" className="validate"/>
-							<label>Text</label>							
-						</div>	
+						<DoneBtn type="end" dialog={this.props.dialog}/>
 					</div>
 				);
 				break;

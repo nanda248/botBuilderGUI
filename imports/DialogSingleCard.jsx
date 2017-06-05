@@ -8,7 +8,7 @@ class DialogSingleCard extends Component {
       let dialogSetId = this.props.dialogSetId;
       swal({
         title: "Are you sure?",
-        text: `${dialogName} will be removed from the category.`,
+        text: `${dialogName} and all the contents inside will be removed from the category.`,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",

@@ -20,7 +20,7 @@ class NextModule extends Component{
 	render(){
 
 		return(
-			<div>
+			<div className="paddingBottom">
 				<a className="btn waves-effect waves-light" onClick={this.addNextModule.bind(this)}>Next Module</a>
 			</div>
 		)
