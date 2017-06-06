@@ -15,8 +15,10 @@ class DialogModule extends Component {
 
 
 	componentDidMount(){
-		// $(React.findDOMNode(this.refs.type)).on('change', this.handleChangeSelect)
-		$(this.refs.type).material_select(this.handleChangeSelect.bind(this));
+		$(document).ready(function(){
+		    $(this.refs.type).material_select(this.handleChangeSelect.bind(this));
+		});
+		
 	}
 
 	handleChangeSelect(event){

@@ -51,12 +51,18 @@ class DoneBtn extends Component{
 	handleConfirmYes(){
 		let dialog = this.props.dialog;
 		var name = "is" + dialog.id;
+		var value = Session.get("addNextModule");
+		value++;
+		Session.set("addNextModule", value);
 		Session.set("addYesModule", name);	
 	}
 
 	handleConfirmNo(){
 		let dialog = this.props.dialog;
 		var name = "isNot" + dialog.id;
+		var value = Session.get("addNextModule");
+		value++;
+		Session.set("addNextModule", value);
 		Session.set("addNoModule", name);
 	}
 
