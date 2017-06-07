@@ -103,14 +103,6 @@ Meteor.methods({
 	dialogPromptTextField(id, type, text){
 		if(!id || !text)
 			throw new Meteor.Error('Error in dialogPromptText')
-		// Dialogs.update({id: id},{
-		// 	$addToSet: {
-		// 		data: {
-		// 			type: type,
-		// 			text: text
-		// 		}
-		// 	}
-		// })
 		let dialogs = Dialogs.findOne({"id": id});
 		if(dialogs.data){
 			Dialogs.update({id: id, "data.text": dialogs.data[0].text},{
@@ -129,6 +121,17 @@ Meteor.methods({
 				}
 			})
 		}
+	},
 
+	addNextStep(id, newId){
+		if(!id || !newId)
+			throw new Meteor.Error('Error in addNextStep')
+		Dialogs.update({id: id},{
+				$addToSet: {
+					steps: {
+						"id": newId
+					}
+				}
+		})
 	}
 });

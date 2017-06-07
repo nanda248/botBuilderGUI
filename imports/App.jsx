@@ -3,8 +3,10 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import {Dialogs} from './api/dialogs.js';
 import {DialogSet} from './api/dialogSet.js';
-import DialogSingleCard from './DialogSingleCard';
-import AddDialogSetBtn from './AddDialogSetBtn';
+
+import DialogSingleCard from './DialogSingleCard.jsx';
+import AddDialogSetBtn from './AddDialogSetBtn.jsx';
+import TestComponent from './dialogEdit/TestComponent.jsx';
 
 class App extends TrackerReact(Component) {
 
@@ -23,6 +25,7 @@ class App extends TrackerReact(Component) {
 		this.state.subscription.dialogs.stop();
 		this.state.subscription.dialogSet.stop();
 	}
+
 
 	dialogs(){
 		return Dialogs.find().fetch();
@@ -61,6 +64,7 @@ class App extends TrackerReact(Component) {
 		let dialogs = this.dialogs();
 		let dialogSet = this.dialogSet();
 		var dialogSetid = null;
+		// Session.set("testData", false)
 		if(dialogSet.length>0)
 			dialogSetid = dialogSet[0]._id;
 		// console.log("DIALOGS: " , dialogs);
@@ -70,6 +74,7 @@ class App extends TrackerReact(Component) {
 			noData = (<div>No dialogs created</div>);
 		}
 
+		
 		return(
 			
 				<div className="row">
@@ -93,6 +98,10 @@ class App extends TrackerReact(Component) {
 									<div className="col s12 m6">
 										<AddDialogSetBtn dialog={dialogs} dialogSetId={dialogSetid} dialogSet={dialogSet}/>
 									</div>	
+									<div className="col s12 m6">
+										<TestComponent />
+									</div>	
+
 								</div>												
 							</form>
 						</div>

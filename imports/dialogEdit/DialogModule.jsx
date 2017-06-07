@@ -16,14 +16,16 @@ class DialogModule extends Component {
 
 	componentDidMount(){
 		$(document).ready(function(){
-		    $(this.refs.type).material_select(this.handleChangeSelect.bind(this));
+			$('select').material_select();
+		    // $(this.refs.type).material_select(this.handleChangeSelect.bind(this));
 		});
 		
 	}
 
 	handleChangeSelect(event){
 		event.preventDefault();
-		var type = event.target.value;
+		var type = this.refs.type.value;
+		// var type = event.target.value;
 		this.setState({type: type, showField:true})
 		Meteor.call('dialogAddType', this.props.dialogName, type, (error, data)=> {
 			if(error)
@@ -34,11 +36,14 @@ class DialogModule extends Component {
 	}
 
 	render(){
-		console.log("select type in render", this.state.type)
-		// console.log("dialog module showNextModule", this.state.showNextModule);
 		let selectedType = this.state.type;
+		console.log("selectedType: ", selectedType)
+		let dialog = this.props.dialog;
 		let fieldArea = this.state.showField ? <NextFieldInput type={selectedType} dialog={this.props.dialog}/> : <span></span>
-
+		var typeSelected = "Choose type";
+		if(dialog.type)
+			typeSelected=dialog.type;
+		console.log("preselected type: ", typeSelected)
 		return(			
 
 					<div className="card-panel blue-grey lighten-2 z-depth-3">             
@@ -46,8 +51,8 @@ class DialogModule extends Component {
 	              			<form className="col s12">
 	              				<span className="boldText">ID: {this.props.dialogName}</span>
 	              				<div className="input-field">
-							    <select className="browser-default" ref="type" onChange={this.handleChangeSelect.bind(this)}>
-							      <option value="" disabled selected>Select module type</option>
+							    <select ref="type" onChange={this.handleChangeSelect.bind(this)} >
+							      <option value="" disabled selected>{typeSelected}</option>
 							      <option value="text">text</option>
 							      <option value="sequence">sequence</option>
 							      <option value="prompt">prompt</option>

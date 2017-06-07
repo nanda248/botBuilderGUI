@@ -16,7 +16,6 @@ class NextFieldInput extends Component{
 	handleChangeSelect(event){
 		event.preventDefault();
 		const dataType = this.refs.dataType.value;
-		console.log("handleChangeSelect: ", dataType)
 		if(Meteor.isClient)
 			Session.set('promptTypeChosen', dataType)
 		this.setState({promptType: dataType})
@@ -31,9 +30,9 @@ class NextFieldInput extends Component{
 	handleFieldContent(){
 		let type = this.props.type;
 		var pType = type;
-		if(promptType!=="")
-			pType = type + this.state.promptType;
-		console.log("Type + Prompt Type: ", type)
+		if(this.state.promptType!=="")
+			pType = "prompt" + this.state.promptType;
+
 		let content = null;
 		switch(type){
 			case "text": content = (
@@ -47,7 +46,7 @@ class NextFieldInput extends Component{
 			case "sequence":content = (
 					<div className="marginTop">
 						<div className="teal lighten-2">Please input the steps</div>
-						<NextModule />
+						<NextModule dialog={this.props.dialog}/>
 					</div>	
 				);
 				break;
