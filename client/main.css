@@ -170,7 +170,7 @@ hr {
    }
    /* label focus color */
    .input-field input[type=text]:focus + label {
-     color: #00BFFF;
+     color: #000;
    }
    /* label underline focus color */
    .input-field input[type=text]:focus {

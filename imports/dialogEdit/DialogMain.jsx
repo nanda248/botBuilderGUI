@@ -48,22 +48,13 @@ class DialogMain extends TrackerReact(Component) {
 			noConfirmModule = Session.get("addNoModule");
 		}
 
-
-		// var newModule = []
-		// if(addNextModule>0 && !confirmModule){
-		// 	console.log("dialogName", dialogName)
-		// 	for(i=0 ; i<addNextModule ; i++){
-		// 		newModule.push(<DialogModule dialogName={dialogName} dialog={dialog} key={addNextModule}/>) 	// following new module
-		// 	}
-		// }
-
 		MainModule = (<DialogModule dialogName={dialogName} dialog={dialog}/>)
 
 		steps = this.getSteps(dialog);
-		if(steps.length>0){
-			console.log("STEPS: ", steps)
-			console.log("STEPS ID: ", steps[0].id)
-		}
+		// if(steps.length>0){
+		// 	console.log("STEPS: ", steps)
+		// 	console.log("STEPS ID: ", steps[0].id)
+		// }
 		console.log("dialogName", dialogName)
 		
 		yesModule = yesConfirmModule!==null ? (<DialogModule dialogName={yesConfirmModule} dialog={dialog} />) : <span></span>

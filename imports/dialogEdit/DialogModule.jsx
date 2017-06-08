@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 
 import NextFieldInput from './NextFieldInput'
 
@@ -6,26 +7,29 @@ class DialogModule extends Component {
 
 	constructor(props){
 		super(props);
-		this.state={
-			type: "",
-			showField: false
-			// showNextModule: false
+		
+		if(this.props.dialog.type){
+			this.state={type: this.props.dialog.type, showField: true}
 		}
+		else{
+			this.state={type: "", showField: false}
+		}
+		console.log(this.state.type)
 	}
 
 
 	componentDidMount(){
-		$(document).ready(function(){
-			$('select').material_select();
-		    // $(this.refs.type).material_select(this.handleChangeSelect.bind(this));
-		});
+		$(document).ready(function() {
+	    	$('select').material_select();
+	  	});		  
+	  	$(ReactDOM.findDOMNode(this.refs.type)).on('change',this.handleSelectChange.bind(this));
 		
 	}
 
-	handleChangeSelect(event){
+	handleSelectChange(event){
 		event.preventDefault();
-		var type = this.refs.type.value;
-		// var type = event.target.value;
+		var type = event.target.value;
+		
 		this.setState({type: type, showField:true})
 		Meteor.call('dialogAddType', this.props.dialogName, type, (error, data)=> {
 			if(error)
@@ -36,14 +40,19 @@ class DialogModule extends Component {
 	}
 
 	render(){
-		let selectedType = this.state.type;
-		console.log("selectedType: ", selectedType)
+		let selectedTypeValue = this.state.type;
 		let dialog = this.props.dialog;
-		let fieldArea = this.state.showField ? <NextFieldInput type={selectedType} dialog={this.props.dialog}/> : <span></span>
 		var typeSelected = "Choose type";
+		var typeSelectedValue = "";
+
 		if(dialog.type)
-			typeSelected=dialog.type;
+			typeSelected = dialog.type;
 		console.log("preselected type: ", typeSelected)
+		console.log("selectedType: ", selectedTypeValue)
+		console.log("showField: ", this.state.showField)
+
+		let fieldArea = this.state.showField ? <NextFieldInput type={selectedTypeValue} dialog={this.props.dialog}/> : <span></span>
+		// let fieldArea = (<span></span>)
 		return(			
 
 					<div className="card-panel blue-grey lighten-2 z-depth-3">             
@@ -51,7 +60,7 @@ class DialogModule extends Component {
 	              			<form className="col s12">
 	              				<span className="boldText">ID: {this.props.dialogName}</span>
 	              				<div className="input-field">
-							    <select ref="type" onChange={this.handleChangeSelect.bind(this)} >
+							    <select ref="type">
 							      <option value="" disabled selected>{typeSelected}</option>
 							      <option value="text">text</option>
 							      <option value="sequence">sequence</option>

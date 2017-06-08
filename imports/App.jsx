@@ -98,7 +98,7 @@ class App extends TrackerReact(Component) {
 									<div className="col s12 m6">
 										<AddDialogSetBtn dialog={dialogs} dialogSetId={dialogSetid} dialogSet={dialogSet}/>
 									</div>	
-									<div className="col s12 m6">
+									<div className="col s12 m12">
 										<TestComponent />
 									</div>	
 

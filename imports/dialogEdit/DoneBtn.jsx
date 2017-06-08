@@ -2,6 +2,12 @@ import React, {Component} from 'react';
 
 class DoneBtn extends Component{
 
+	componentDidMount(){
+		$(document).ready(function() {
+		    Materialize.updateTextFields();
+	  	});
+	}
+
 	handleTextField(event){
 		event.preventDefault();
 		var text = this.refs.textField.value.trim();
@@ -66,65 +72,49 @@ class DoneBtn extends Component{
 		Session.set("addNoModule", name);
 	}
 
-	// doneModule(){
-	// 	var type=this.props.type;
-	// 	switch(type){
-	// 		case 'text': 
-	// 			break;
-	// 		case 'prompText':
-	// 			break;
-	// 		case 'promptNumber':
-	// 			break;
-	// 		case 'promptTime':
-	// 			break;
-	// 		case 'promptConfirm':
-	// 			break;
-	// 		default: console.log("Error: nothing chosen")
-	// 			break;
-	// 	}
-
-	// }
 
 	render(){
-
+		// promptText = this.props.promptText;
+		prefilledText = this.props.textField; 
+		console.log('prefilledText: ', prefilledText)
 		console.log('TYPE in DoneBtn', this.props.type)
 		let content = null;
 		switch(this.props.type){
 			case 'text': content= (
 					<div className="input-field">						
-							<input id="text" type="text" ref="textField" className="validate"/>
-							<label>Text</label>		
+							<input id="text" type="text" ref="textField" className="validate" placeholder={prefilledText}/>
+							<label className="active" htmlFor="text">Text</label>		
 							<a className="btn waves-effect waves-light" onClick={this.handleTextField.bind(this)}>Done</a>				
 					</div>	
 				)
 				break;
 			case 'end': content= (
 					<div className="input-field">						
-							<input id="text" type="text" ref="endField" className="validate"/>
-							<label>Text</label>		
+							<input id="text" type="text" ref="endField" className="validate" placeholder={prefilledText}/>
+							<label className="active" htmlFor="text">Text</label>		
 							<a className="btn waves-effect waves-light" onClick={this.handleEndField.bind(this)}>Done</a>				
 					</div>	
 				)
 				break;
 			case 'prompttext': content= (
 					<div className="input-field">						
-							<input id="text" type="text" ref="promptField" className="validate"/>
-							<label>Text</label>		
+							<input id="text" type="text" ref="promptField" className="validate" placeholder={prefilledText}/>
+							<label className="active" htmlFor="text">Text</label>		
 							<a className="btn waves-effect waves-light" onClick={this.handlePromptField.bind(this)}>Done</a>				
 					</div>
 				)
 				break;
 			case 'promptnumber': content = (
 					<div className="input-field">						
-							<input id="text" type="text" ref="promptField" className="validate"/>
-							<label>Text</label>		
+							<input id="text" type="text" ref="promptField" className="validate" placeholder={prefilledText}/>
+							<label className="active" htmlFor="text">Text</label>		
 							<a className="btn waves-effect waves-light" onClick={this.handlePromptField.bind(this)}>Done</a>				
 					</div>
 				)
 				break;
 			case 'prompttime': content = (
 					<div className="input-field">						
-							<input id="text" type="text" ref="promptField" className="validate"/>
+							<input id="text" type="text" ref="promptField" className="validate" placeholder={prefilledText}/>
 							<label>Text</label>		
 							<a className="btn waves-effect waves-light" onClick={this.handlePromptField.bind(this)}>Done</a>				
 					</div>
@@ -133,8 +123,8 @@ class DoneBtn extends Component{
 			case 'promptconfirm': content=(
 					<div className="row input-field">
 						<div className="col s12">
-							<input id="text" type="text" ref="promptField" className="validate"/>
-							<label>Text</label>	
+							<input id="text" type="text" ref="promptField" className="validate" placeholder={prefilledText}/>
+							<label className="active" htmlFor="text">Text</label>	
 						</div>
 						<div className="col s3">
 							<a className="btn waves-effect waves-light" onClick={this.handleConfirmYes.bind(this)}>Yes</a>
