@@ -83,11 +83,11 @@ class App extends TrackerReact(Component) {
 							<form className="col s12">
 								<div className="row">
 									<div className="col s12">
-										<input type="text" ref="dialog" />
+										<input className="white-text" type="text" ref="dialog" />
 										<label className="smallText"> Dialog Name (No space between words)</label>
 									</div>
 									<div className="col s12">
-										<input type="text" ref="regex" />
+										<input className="white-text" type="text" ref="regex" />
 										<label className="smallText">Regex (separate by comma)</label>
 									</div>	
 									<div className="col s12 m6 paddingTopBottom">

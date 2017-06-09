@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import NextModule from './NextModule';
 import DoneBtn from './DoneBtn';
 
-class NextFieldInput extends Component{
+class NextFieldInput extends TrackerReact(Component){
 
 	constructor(props){
 		super(props);
@@ -16,7 +17,7 @@ class NextFieldInput extends Component{
 			console.log("in true loop")
 			this.state = {textField: text, promptType: props.dialog.data[0].type}
 		}else if(props.dialog.data && props.type!=="sequence"){
-			his.state = {textField: text, promptType: "" }
+			this.state = {textField: text, promptType: "" }
 		}
 		else{
 			this.state = {textField: "", promptType: ""}
@@ -29,7 +30,10 @@ class NextFieldInput extends Component{
 	    	$('select').material_select();
 	  	});		  
 	  	$(ReactDOM.findDOMNode(this.refs.dataType)).on('change',this.handleSelectChange.bind(this));
-		
+	}
+
+	componentWillUnmount(){
+		 $('select').material_select('destroy');
 	}
 
 	handleSelectChange(event){
@@ -83,6 +87,7 @@ class NextFieldInput extends Component{
 
 			case "prompt":content = (
 					<div> 
+						<div className="divider"></div>
 						<div className="teal lighten-2">Please choose prompt type and input a text to Send</div>
 						<div className="input-field">
 							<select ref="dataType">

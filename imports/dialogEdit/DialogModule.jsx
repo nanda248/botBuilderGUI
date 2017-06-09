@@ -20,11 +20,16 @@ class DialogModule extends Component {
 
 	componentDidMount(){
 		$(document).ready(function() {
+			console.log("SELECT", $('select'))
 	    	$('select').material_select();
 	  	});		  
 	  	$(ReactDOM.findDOMNode(this.refs.type)).on('change',this.handleSelectChange.bind(this));
-		
 	}
+
+	componentWillUnmount(){
+		 $('select').material_select('destroy');
+	}
+
 
 	handleSelectChange(event){
 		event.preventDefault();
