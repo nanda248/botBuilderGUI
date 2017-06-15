@@ -77,7 +77,7 @@ class DoneBtn extends Component{
 		// promptText = this.props.promptText;
 		prefilledText = this.props.textField; 
 		console.log('prefilledText: ', prefilledText)
-		console.log('TYPE in DoneBtn', this.props.type)
+		// console.log('TYPE in DoneBtn', this.props.type)
 		let content = null;
 		switch(this.props.type){
 			case 'text': content= (

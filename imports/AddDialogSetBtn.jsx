@@ -24,26 +24,6 @@ class AddDialogSetBtn extends Component {
     let dialogSetId = this.props.dialogSetId;
     let dialogSet = this.props.dialogSet;
     var found = false;
-    // var dialogsArrray = []
-    // for(i=0 ; i<dialogs.length ; i++ ){
-    //   var pathNameTest = "/" + dialogs[i].name;
-    //   var regexTest = "^"+ dialogs[i].regex;
-    //   var scenarioTest = dialogs[i].name;
-    //   dialogsArrray.push({
-    //     pathName: pathNameTest,
-    //     regex: regexTest,
-    //     scenario: scenarioTest
-    //   })
-    // }
-
-    // console.log("Dialogs Array: ", dialogsArrray)
- 
-    // var file = '/data.json'
-    // var obj = dialogSet;
-     
-    // jsonfile.writeFile(file, obj, function (err) {
-    //   console.error(err)
-    // })
 
     for(i=0 ; i<dialogs.length ; i++){
       found = false;

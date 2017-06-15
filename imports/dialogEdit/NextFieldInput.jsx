@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+// import ReactDOM from 'react-dom';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import NextModule from './NextModule';
@@ -14,7 +16,6 @@ class NextFieldInput extends TrackerReact(Component){
 			text = props.dialog.data[0].text;
 		
 		if(props.dialog.type === "prompt" && props.dialog.data){
-			console.log("in true loop")
 			this.state = {textField: text, promptType: props.dialog.data[0].type}
 		}else if(props.dialog.data && props.type!=="sequence"){
 			this.state = {textField: text, promptType: "" }
@@ -22,23 +23,22 @@ class NextFieldInput extends TrackerReact(Component){
 		else{
 			this.state = {textField: "", promptType: ""}
 		}
-		
 	}
 
-	componentDidMount(){
-		$(document).ready(function() {
-	    	$('select').material_select();
-	  	});		  
-	  	$(ReactDOM.findDOMNode(this.refs.dataType)).on('change',this.handleSelectChange.bind(this));
-	}
-
-	componentWillUnmount(){
-		 $('select').material_select('destroy');
-	}
-
-	handleSelectChange(event){
+	close(event){
 		event.preventDefault();
-		const dataType = event.target.value;
+		let dialog = this.props.dialog;
+		var text = dialog.data[0].text;
+		Meteor.call('RemovePromptTypeAndData', dialog.id, text, (error,data)=>{
+			if(error)
+				Bert.alert(error.error, 'danger', 'fixed-top', 'fa-frown-o');
+			else
+				console.log("RemovePromptTypeAndData successful")
+		})
+	}
+
+	logChange(val){
+		var dataType = val.value;
 		if(Meteor.isClient)
 			Session.set('promptTypeChosen', dataType)
 		this.setState({promptType: dataType})
@@ -48,13 +48,26 @@ class NextFieldInput extends TrackerReact(Component){
 		let type = this.props.type;
 		let dialog = this.props.dialog;
 		var pType = type;
-		var selectPromptType = "Choose Prompt Type";
+		var selectPromptType = this.state.promptType;
 		var promptText = "";
 
-		if(this.state.promptType !== ""){
+		if(dialog.type === "prompt" && dialog.data){
 			selectPromptType = this.state.promptType;
 			pType = "prompt" + this.state.promptType;
 		}
+
+		if(dialog.type === "prompt" && !dialog.data){
+			pType = "prompt" + this.state.promptType;
+		}
+
+		var options = [
+		  { value: 'text', label: 'Text' },
+		  { value: 'number', label: 'Number' },
+		  { value: 'time', label: 'Time' },
+		  { value: 'confirm', label: 'Confirm' },
+		];
+
+		
 		
 		// if(dialog.type==="prompt" && dialog.data){
 		// 	selectPromptType = dialog.data[0].type;
@@ -64,8 +77,9 @@ class NextFieldInput extends TrackerReact(Component){
 		// 		promptText = dialog.data[0].text;
 		// }
 		// console.log("ptype: " , pType)
-		console.log("prefilled Text:", this.state.textField)
+		// console.log("prefilled Text:", this.state.textField)
 		console.log("preselected prompt type: ", this.state.promptType)
+		console.log("pType: ", pType)
 
 		let content = null;
 		switch(type){
@@ -80,7 +94,7 @@ class NextFieldInput extends TrackerReact(Component){
 			case "sequence":content = (
 					<form className="marginTop">
 						<div className="teal lighten-2">Please input the steps</div>
-						{/*<NextModule dialog={dialog}/>*/}
+						<NextModule dialog={dialog}/>
 					</form>	
 				);
 				break;
@@ -88,19 +102,16 @@ class NextFieldInput extends TrackerReact(Component){
 			case "prompt":content = (
 					<div> 
 						<div className="divider"></div>
-						<div className="teal lighten-2">Please choose prompt type and input a text to Send</div>
-						<div className="input-field">
-							<select ref="dataType">
-						      <option value="" disabled selected>{selectPromptType}</option>
-						      <option value="text">text</option>
-						      <option value="number">number</option>
-						      <option value="time">time</option>
-						      <option value="confirm">confirm</option>
-						    </select>
-						    <label>Choose prompt type</label>							
-						</div>	
+							
+						<span>Please choose prompt type and input a text to Send</span>
+	              				<Select
+								  name={this.props.dialogName}
+								  value={selectPromptType}
+								  options={options}
+								  onChange={this.logChange.bind(this)}
+								/>
 						
-						<DoneBtn type={pType} dialog={this.props.dialog} promptType={this.state.promptType} textField={this.state.textField}/>
+						<DoneBtn type={pType} dialog={dialog} promptType={this.state.promptType} textField={this.state.textField}/>
 					</div>
 				);
 				break;
@@ -108,7 +119,7 @@ class NextFieldInput extends TrackerReact(Component){
 			case "end":content = (
 					<form>
 						<div className="teal lighten-2">Please input a final text to end the dialog.</div>
-						<DoneBtn type="end" dialog={this.props.dialog} textField={this.state.textField}/>
+						<DoneBtn type="end" dialog={dialog} textField={this.state.textField}/>
 					</form>
 				);
 				break;
@@ -129,6 +140,11 @@ class NextFieldInput extends TrackerReact(Component){
 		return(
 			<div className="row">
 				<div className="col s12">
+					<div className="right-align">
+								<a className="white-text" onClick={this.close.bind(this)}>
+									<i className="material-icons">clear</i>
+								</a>
+							</div>
 					{content}
 				</div>
 			</div>

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import ReactDOM from 'react-dom';
 
 import NextFieldInput from './NextFieldInput'
@@ -7,35 +9,29 @@ class DialogModule extends Component {
 
 	constructor(props){
 		super(props);
-		
+		this.state={
+			type: "",
+			showField: false
+		}
+		// if(this.props.dialog.type){
+		// 	this.state={type: this.props.dialog.type, showField: true}
+		// }
+		// else{
+		// 	this.state={type: "", showField: false}
+		// }
+	}
+
+	componentWillMount(){
 		if(this.props.dialog.type){
-			this.state={type: this.props.dialog.type, showField: true}
+			// this.state={type: this.props.dialog.type, showField: true}
+			this.setState({type: this.props.dialog.type, showField: true})
 		}
-		else{
-			this.state={type: "", showField: false}
-		}
-		console.log(this.state.type)
 	}
 
 
-	componentDidMount(){
-		$(document).ready(function() {
-			console.log("SELECT", $('select'))
-	    	$('select').material_select();
-	  	});		  
-	  	$(ReactDOM.findDOMNode(this.refs.type)).on('change',this.handleSelectChange.bind(this));
-	}
-
-	componentWillUnmount(){
-		 $('select').material_select('destroy');
-	}
-
-
-	handleSelectChange(event){
-		event.preventDefault();
-		var type = event.target.value;
-		
-		this.setState({type: type, showField:true})
+	logChange(val){
+		var type = val.value;
+		this.setState({type: type, showField: true});
 		Meteor.call('dialogAddType', this.props.dialogName, type, (error, data)=> {
 			if(error)
 				Bert.alert(error.error, 'danger', 'fixed-top', 'fa-frown-o');
@@ -49,31 +45,39 @@ class DialogModule extends Component {
 		let dialog = this.props.dialog;
 		var typeSelected = "Choose type";
 		var typeSelectedValue = "";
+		var options = [
+		  { value: 'text', label: 'Text' },
+		  { value: 'sequence', label: 'Sequence' },
+		  { value: 'prompt', label: 'Prompt' },
+		  { value: 'end', label: 'End' },
+		];
 
+		typeSelected = "Select Type:"
+		disabled = false;
 		if(dialog.type)
 			typeSelected = dialog.type;
-		console.log("preselected type: ", typeSelected)
-		console.log("selectedType: ", selectedTypeValue)
-		console.log("showField: ", this.state.showField)
+		if(dialog.type === "prompt" && dialog.data){
+			disabled = true
+		}
+
+		// console.log("preselected type: ", typeSelected)
+		// console.log("selectedType: ", selectedTypeValue)
+		// console.log("showField: ", this.state.showField)
+		console.log("disabled: ", disabled)
 
 		let fieldArea = this.state.showField ? <NextFieldInput type={selectedTypeValue} dialog={this.props.dialog}/> : <span></span>
-		// let fieldArea = (<span></span>)
+		
 		return(			
-
 					<div className="card-panel blue-grey lighten-2 z-depth-3">             
 	                  	<div className="row">
-	              			<form className="col s12">
-	              				<span className="boldText">ID: {this.props.dialogName}</span>
-	              				<div className="input-field">
-							    <select ref="type">
-							      <option value="" disabled selected>{typeSelected}</option>
-							      <option value="text">text</option>
-							      <option value="sequence">sequence</option>
-							      <option value="prompt">prompt</option>
-							      <option value="end">end</option>
-							    </select>				    
-							  </div>	
-	              			</form>   
+	              				<span>Please select type:</span>
+	              				<Select
+								  name={this.props.dialogName}
+								  value={typeSelected}
+								  options={options}
+								  onChange={this.logChange.bind(this)}
+								  disabled={disabled}
+								/>  
 	              			<div className="col s12">
 			                	{fieldArea}
 			                </div>                		

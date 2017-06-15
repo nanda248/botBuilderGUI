@@ -43,7 +43,7 @@ class DialogMain extends TrackerReact(Component) {
 		let dialogName = this.props.dialogName;
 		let dialog = this.dialog(dialogName); 
 		if(Meteor.isClient){
-			addNextModule = Session.get("addNextModule");
+			// addNextModule = Session.get("addNextModule");
 			yesConfirmModule = Session.get("addYesModule");
 			noConfirmModule = Session.get("addNoModule");
 		}
@@ -51,16 +51,13 @@ class DialogMain extends TrackerReact(Component) {
 		MainModule = (<DialogModule dialogName={dialogName} dialog={dialog}/>)
 
 		steps = this.getSteps(dialog);
-		// if(steps.length>0){
-		// 	console.log("STEPS: ", steps)
-		// 	console.log("STEPS ID: ", steps[0].id)
-		// }
-		console.log("dialogName", dialogName)
 		
-		yesModule = yesConfirmModule!==null ? (<DialogModule dialogName={yesConfirmModule} dialog={dialog} />) : <span></span>
-		noModule = noConfirmModule!==null ? (<DialogModule dialogName={noConfirmModule} dialog={dialog} />): <span></span>
-		Session.set("addYesModule", null);
-		Session.set("addNoModule", null);
+		console.log("dialogName", dialogName)	
+		
+		// yesModule = yesConfirmModule!==null ? (<DialogModule dialogName={yesConfirmModule} dialog={dialog} />) : <span></span>
+		// noModule = noConfirmModule!==null ? (<DialogModule dialogName={noConfirmModule} dialog={dialog} />): <span></span>
+		// Session.set("addYesModule", null);
+		// Session.set("addNoModule", null);
 
 		// addModule = addNextModule ? (<DialogModule dialogName={dialogName}/>) : <span></span>
 
@@ -86,15 +83,16 @@ class DialogMain extends TrackerReact(Component) {
 						{steps.map((step)=>{
 							return <StepModule dialogName={step.id} dialog={dialog} key={step.id} step={step}/>
 						})}
+						
 						</div>
 					</div>					
 					<div className="row">
 						<div className="col m4">
-							{yesModule}
+							{/*yesModule*/}
 						</div>
 						<div className="col m4"></div>
 						<div className="col m4">
-							{noModule}
+							{/*noModule*/}
 						</div>
 					</div>			
 				</div>

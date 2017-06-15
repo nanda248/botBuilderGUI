@@ -123,6 +123,16 @@ Meteor.methods({
 		}
 	},
 
+	RemovePromptTypeAndData(id, text){
+		if(!id || !text)
+			throw new Meteor.Error('Error in RemovePromptTypeAndData')
+		Dialogs.update({id: id}, { 
+			$unset: {
+				data: ""
+			}
+		})
+	},
+
 	addNextStep(id, newId){
 		if(!id || !newId)
 			throw new Meteor.Error('Error in addNextStep')
