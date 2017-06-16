@@ -23,6 +23,14 @@ class DialogSingleCard extends Component {
   
     render(){
   		let dialogName = this.props.dialog.name;
+      let dialogSet = this.props.dialogSet;
+      var addedToDialogSet = false;
+      for(i=0 ; i<dialogSet[0].dialogs.length ; i++){
+        if(dialogSet[0].dialogs[i].scenario === dialogName){
+          addedToDialogSet = true;
+        }
+      }
+      badgeArea = addedToDialogSet ? (<div><span className="badge badgeBox black-text">Added</span></div>) : (<span className="red-text text-darken-1">Not Added</span>)
 
         return (
         	<div className="col s4 l3">
@@ -33,9 +41,16 @@ class DialogSingleCard extends Component {
                   <p>This is a dialog module. Please edit me to structure your bot.</p>
                 </div>
                 <div className="card-action">
-                  <a href="#" onClick={this.removeDialog.bind(this)} className="smallText">Remove </a>
-                  <i className="tiny material-icons">mode_edit</i>
-                  <a href={`/editDialog/${dialogName}`}  className="smallText">Edit </a>
+                  <div className="row">
+                    <div className=" col s8">
+                      <a href="#" onClick={this.removeDialog.bind(this)} className="smallText">Remove </a>
+                      <i className="tiny material-icons">mode_edit</i>
+                      <a href={`/editDialog/${dialogName}`}  className="smallText">Edit </a>
+                    </div>
+                    <div className=" col s4">
+                      {badgeArea}
+                    </div>
+                  </div>
                 </div>  
               </div>
             </div>

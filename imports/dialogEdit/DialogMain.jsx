@@ -81,7 +81,7 @@ class DialogMain extends TrackerReact(Component) {
 						<div className="col s4 offset-s4 grey lighten-4">
 						{MainModule}
 						{steps.map((step)=>{
-							return <StepModule dialogName={step.id} dialog={dialog} key={step.id} step={step}/>
+							return <StepModule stepId={step.id} dialog={dialog} key={step.id} step={step}/>
 						})}
 						
 						</div>

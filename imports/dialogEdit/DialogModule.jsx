@@ -21,7 +21,7 @@ class DialogModule extends Component {
 		// }
 	}
 
-	componentWillMount(){
+	componentDidMount(){
 		if(this.props.dialog.type){
 			// this.state={type: this.props.dialog.type, showField: true}
 			this.setState({type: this.props.dialog.type, showField: true})
@@ -31,12 +31,14 @@ class DialogModule extends Component {
 
 	logChange(val){
 		var type = val.value;
-		this.setState({type: type, showField: true});
+		
 		Meteor.call('dialogAddType', this.props.dialogName, type, (error, data)=> {
 			if(error)
 				Bert.alert(error.error, 'danger', 'fixed-top', 'fa-frown-o');
-			else 
+			else{
+				this.setState({type: type, showField: true});
 				console.log("dialogAddType Successful!")
+			}
 		})
 	}
 
@@ -45,11 +47,12 @@ class DialogModule extends Component {
 		let dialog = this.props.dialog;
 		var typeSelected = "Choose type";
 		var typeSelectedValue = "";
+		var stepId ="";
 		var options = [
 		  { value: 'text', label: 'Text' },
-		  { value: 'sequence', label: 'Sequence' },
+		  { value: 'sequence', label: 'Sequence'},
 		  { value: 'prompt', label: 'Prompt' },
-		  { value: 'end', label: 'End' },
+		  // { value: 'end', label: 'End' },
 		];
 
 		typeSelected = "Select Type:"
@@ -62,14 +65,15 @@ class DialogModule extends Component {
 
 		// console.log("preselected type: ", typeSelected)
 		// console.log("selectedType: ", selectedTypeValue)
-		// console.log("showField: ", this.state.showField)
+		console.log("showField: ", this.state.showField)
 		console.log("disabled: ", disabled)
 
-		let fieldArea = this.state.showField ? <NextFieldInput type={selectedTypeValue} dialog={this.props.dialog}/> : <span></span>
+		let fieldArea = this.state.showField ? <NextFieldInput type={selectedTypeValue} dialog={this.props.dialog} isStep={false} stepId={stepId}/> : <span></span>
 		
 		return(			
 					<div className="card-panel blue-grey lighten-2 z-depth-3">             
 	                  	<div className="row">
+	                  		<p>ID: {this.props.dialogName}</p>
 	              				<span>Please select type:</span>
 	              				<Select
 								  name={this.props.dialogName}

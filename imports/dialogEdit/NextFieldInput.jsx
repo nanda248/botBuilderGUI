@@ -11,17 +11,28 @@ class NextFieldInput extends TrackerReact(Component){
 
 	constructor(props){
 		super(props);
-		let text = ""
-		if(props.dialog.data)
-			text = props.dialog.data[0].text;
-		
-		if(props.dialog.type === "prompt" && props.dialog.data){
-			this.state = {textField: text, promptType: props.dialog.data[0].type}
-		}else if(props.dialog.data && props.type!=="sequence"){
-			this.state = {textField: text, promptType: "" }
+
+		this.state={
+			textField: "",
+			promptType: ""
 		}
-		else{
-			this.state = {textField: "", promptType: ""}
+	}
+
+	componentDidMount(){
+		let text = ""
+		if(this.props.dialog.data)
+			text = props.dialog.data[0].text;
+		if(this.props.isStep){
+			// if it is step
+		} else {
+			if(this.props.dialog.type === "prompt" && this.props.dialog.data){
+				this.setState({textField: text, promptType: this.props.dialog.data[0].type})
+			}else if(this.props.dialog.data && this.props.type!=="sequence"){
+				this.setState({textField: text, promptType: ""})
+			}
+			else{
+				this.setState({textField: "", promptType: ""})
+			}
 		}
 	}
 
@@ -56,9 +67,10 @@ class NextFieldInput extends TrackerReact(Component){
 			pType = "prompt" + this.state.promptType;
 		}
 
-		if(dialog.type === "prompt" && !dialog.data){
+		if((dialog.type === "prompt" && !dialog.data) || this.props.isStep){
 			pType = "prompt" + this.state.promptType;
 		}
+
 
 		var options = [
 		  { value: 'text', label: 'Text' },
@@ -78,7 +90,7 @@ class NextFieldInput extends TrackerReact(Component){
 		// }
 		// console.log("ptype: " , pType)
 		// console.log("prefilled Text:", this.state.textField)
-		console.log("preselected prompt type: ", this.state.promptType)
+		console.log("selected prompt type: ", this.state.promptType)
 		console.log("pType: ", pType)
 
 		let content = null;
@@ -86,7 +98,7 @@ class NextFieldInput extends TrackerReact(Component){
 			case "text": content = (
 					<form className="marginTop">
 						<div className="teal lighten-2">Please input text field to send.</div>
-						<DoneBtn type="text" dialog={dialog} textField={this.state.textField}/>
+						<DoneBtn type="text" dialog={dialog} textField={this.state.textField} isStep={this.props.isStep} stepId={this.props.stepId}/>
 					</form>				
 				);
 				break;
@@ -111,7 +123,12 @@ class NextFieldInput extends TrackerReact(Component){
 								  onChange={this.logChange.bind(this)}
 								/>
 						
-						<DoneBtn type={pType} dialog={dialog} promptType={this.state.promptType} textField={this.state.textField}/>
+						<DoneBtn 
+							type={pType} 
+							dialog={dialog} 
+							promptType={this.state.promptType} 
+							textField={this.state.textField} 
+							isStep={this.props.isStep} stepId={this.props.stepId}/>
 					</div>
 				);
 				break;

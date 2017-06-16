@@ -133,6 +133,7 @@ Meteor.methods({
 		})
 	},
 
+// For step operations
 	addNextStep(id, newId){
 		if(!id || !newId)
 			throw new Meteor.Error('Error in addNextStep')
@@ -143,5 +144,64 @@ Meteor.methods({
 					}
 				}
 		})
+	},
+
+	dialogAddTypeInStep(id, stepId, type, index){
+		// console.log(id);
+		// console.log(stepId);
+		// console.log(type);
+		// console.log(index);
+		if(!id || !type || !stepId){
+			throw new Meteor.Error('Error in dialogAddTypeInStep')
+		}
+		let dialog = Dialogs.findOne({"id": id});
+		console.log(dialog.steps[index].id)
+		if(dialog.steps){
+			console.log("true loop")
+			Dialogs.update({id: id, "steps.id": dialog.steps[index].id },{ // step id is not needed actually
+				$set: {
+					'steps.$.type': type
+				}
+			})
+		} else {
+			console.log("false loop")
+			Dialogs.update({id: id}, {
+				$addToSet: {
+					steps: {
+						"id": stepId,
+						"type": type
+					}
+				}
+			})
+		}
+		
+	},
+
+	stepTextText(id, stepId, text, index){
+		if(!id || !stepId || !text)
+			throw new Meteor.Error('Error in stepTextText')
+		// let dialog = Dialogs.findOne({"id": id})
+		Dialogs.update({id: id, "steps.id": stepId},{
+			$addToSet: {
+				'steps.$.data': {
+					text: text
+				}
+			}
+
+		})
+	},
+
+	stepPromptText(id, stepId, type, text){
+		if(!id || !stepId || !type || !text)
+			throw Meteor.Error('Error in stepPromptText')
+		Dialogs.update({id: id, "steps.id": stepId},{
+			$addToSet:{
+				'steps.$.data': {
+					type: type,
+					text:text
+				}
+			}
+		})
+
 	}
 });
